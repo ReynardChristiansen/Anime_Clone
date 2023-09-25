@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
@@ -9,6 +9,8 @@ import Favorites from './screens/favorites';
 import ProductDetails from './screens/productDetails';
 import Search from './screens/Search';
 import Icon from 'react-native-vector-icons/AntDesign';
+import { useEffect, useState } from 'react';
+
 
 const Tab = createBottomTabNavigator()
 const Stack = createNativeStackNavigator()
@@ -24,6 +26,7 @@ function BottomTabs(){
 }
 
 export default function App() {
+
   return (
     <ProductContext>
         <View style={styles.container}>
@@ -35,6 +38,7 @@ export default function App() {
                   <Stack.Screen options={{title:'Product Details'}} name="productDetails" component={ProductDetails}/>
               </Stack.Navigator>
           </NavigationContainer>
+
         </View>
     </ProductContext>
 

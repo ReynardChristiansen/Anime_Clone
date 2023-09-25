@@ -47,15 +47,15 @@ const ProductContext = ({children}) =>{
     useEffect(()=>{
         setLoading(true)
         async function getProductFromApi(){
+                const apiRes = await fetch(`https://api.consumet.org/anime/gogoanime/top-airing`)
+                const final = await apiRes.json()
             
-            const apiRes = await fetch('https://dummyjson.com/products')
-            const final = await apiRes.json()
             if(final){
                 setTimeout(()=>{
                     setLoading(false)
                 }, 2000)
                 
-                setProducts(final.products)
+                setProducts(final.results)
             }
             
             
@@ -63,7 +63,6 @@ const ProductContext = ({children}) =>{
 
         getProductFromApi()
     },[])
-
 
     return(
         

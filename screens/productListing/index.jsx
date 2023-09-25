@@ -1,9 +1,14 @@
-import {View, Text, StyleSheet} from "react-native"
+import {View, Text, StyleSheet, FlatList} from "react-native"
+import { useContext } from "react"
+import { Context } from "../../context"
+import ProductListItem from "../../components/ProductListItem"
 
 export default function ProductListing(){
+    const {loading, products} = useContext(Context) 
+
     return(
-        <View>
-            <Text>ProductListing</Text>
+        <View>   
+            <FlatList data={products} renderItem={(itemData) => <ProductListItem title={itemData.item.title} ></ProductListItem>} keyExtractor={(itemData) =>itemData.id} numColumns={2}/>
         </View>
     )
 }
