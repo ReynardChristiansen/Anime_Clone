@@ -8,7 +8,7 @@ export default function ProductListItem({title, image, onPress}){
             
             <Pressable onPress={onPress} >
                 <View> 
-                    <Image source={{ uri: image}} onError={(error) => console.error('Image loading error:', error)}  style={styles.pitcureImage}/>
+                    <Image source={{ uri: image}} onError={(error) => console.error('Image loading error:', error)}  style={styles.pictureImage}/>
                     <Text  style={styles.font} numberOfLines={1}>{title.english}</Text>
                 </View>
             </Pressable>
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         alignContent:'center'
     },
-    pitcureImage:{
+    pictureImage:{
         width: "$full", 
         height: 190,
         borderRadius: 5,

@@ -35,7 +35,7 @@ export default function App() {
           <NavigationContainer>
               <Stack.Navigator>
                   <Stack.Screen options={{headerShown:false}} name="bottomTabs" component={BottomTabs}/>
-                  <Stack.Screen options={{title:'Product Details'}} name="productDetails" component={ProductDetails}/>
+                  <Stack.Screen options={{title:'Anime Details'}} name="productDetails" component={ProductDetails}/>
               </Stack.Navigator>
           </NavigationContainer>
 
