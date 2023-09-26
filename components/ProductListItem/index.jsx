@@ -1,15 +1,18 @@
 import {View, Text, StyleSheet, FlatList, Pressable, Image} from "react-native"
+import { TouchableOpacity } from "react-native"
 
-export default function ProductListItem({title, image}){
+export default function ProductListItem({title, image, onPress}){
    
     return(
         <View style={styles.productItemOuterContainer}>
-            <Pressable >
+            
+            <Pressable onPress={onPress} >
                 <View> 
                     <Image source={{ uri: image}} onError={(error) => console.error('Image loading error:', error)}  style={styles.pitcureImage}/>
                     <Text  style={styles.font} numberOfLines={1}>{title.english}</Text>
                 </View>
             </Pressable>
+            
         </View>
     )
 }
@@ -30,7 +33,8 @@ const styles = StyleSheet.create({
     pitcureImage:{
         width: "$full", 
         height: 190,
-        borderRadius: 5
+        borderRadius: 5,
+        
     },
     
 })
