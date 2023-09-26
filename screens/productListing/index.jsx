@@ -1,17 +1,56 @@
-import {View, Text, StyleSheet, FlatList} from "react-native"
+import {View, Text, StyleSheet, FlatList, Image, Button} from "react-native"
 import { useContext } from "react"
 import { Context } from "../../context"
 import ProductListItem from "../../components/ProductListItem"
+import { useState } from "react"
+import Icon from 'react-native-vector-icons/AntDesign';
+import { ActivityIndicator } from "react-native"
 
 export default function ProductListing(){
-    const {loading, products} = useContext(Context) 
+    const {loading, products,currentPage, setCurrentPage} = useContext(Context) 
+    const totalPages = 4000;
+
+    const handlePreviousPage = () => {
+      if (currentPage > 1) {
+        setCurrentPage(currentPage - 1);
+      }
+    };
+  
+    const handleNextPage = () => {
+      if (currentPage < totalPages) {
+        setCurrentPage(currentPage + 1);
+      }
+    };
+
+    if(loading){
+        return(
+            <ActivityIndicator style={styles.loader} color={'#0377fc'} size="large"/>
+        )
+    }
+
+
 
     return(
-        <View>   
-            <FlatList data={products} renderItem={(itemData) => <ProductListItem title={itemData.item.title} ></ProductListItem>} keyExtractor={(itemData) =>itemData.id} numColumns={2}/>
+        <View style={styles.container}>  
+            <FlatList data={products} renderItem={(itemData) => <ProductListItem title={itemData.item.title} image={itemData.item.image}></ProductListItem>} keyExtractor={(itemData) =>itemData.id} numColumns={2}/>
+            
+            <View style={styles.bottomContainer}>
+                <View style={styles.buttonContainer}>
+                    <Icon name="doubleleft" color="#0377fc" size={20}  title="Previous" onPress={handlePreviousPage} disabled={currentPage === 1} />
+                </View>
+
+                <Text>{currentPage}</Text>
+
+                <View style={styles.buttonContainer}>
+                    <Icon name="doubleright" color="#0377fc" size={20} title="Next" onPress={handleNextPage} disabled={currentPage === totalPages} />
+                </View>
+            </View>
         </View>
+
+        
     )
 }
+
 
 
 const styles = StyleSheet.create({
@@ -19,5 +58,19 @@ const styles = StyleSheet.create({
         flex:1,
         justifyContent:'center',
         alignItems:'center'
-    }
+    },
+    container: {
+        marginBottom: 50,
+      },
+      buttonContainer: {
+        flex: 1,
+        alignItems: "center",
+      },
+      bottomContainer: {
+        flexDirection: "row",
+        justifyContent: "space-between", // This evenly spaces the three components
+        alignItems: "center", // Vertically centers the components
+        paddingHorizontal: 30, // Adjust horizontal padding as needed
+        marginTop:15
+      },
 })

@@ -1,11 +1,4 @@
 import { createContext, useEffect, useState } from "react";
-import { ActivityIndicator } from "react-native";
-import FavoriteItem from "../components/favoriteItem";
-//create the context
-
-//provide the context
-
-//consume the context
 
 export const Context = createContext(null)
 
@@ -14,6 +7,7 @@ const ProductContext = ({children}) =>{
     const [products, setProducts] = useState([])
     const [loading, setLoading] = useState(false)
     const [favoriteItems, setFavoriteItems] = useState([])
+    const [currentPage, setCurrentPage] = useState(1);
 
     const addToFavorites = (productID, reason)=>{
         let cpyFavoriteItem = [...favoriteItems]
@@ -42,32 +36,28 @@ const ProductContext = ({children}) =>{
         setFavoriteItems(cpyFavoriteItem)
     }
 
-    console.log(favoriteItems)
+    
 
     useEffect(()=>{
         setLoading(true)
         async function getProductFromApi(){
-                const apiRes = await fetch(`https://api.consumet.org/anime/gogoanime/top-airing`)
+            
+                const apiRes = await fetch(`https://api.consumet.org/meta/anilist/popular?page=${currentPage}`)
                 const final = await apiRes.json()
             
             if(final){
-                setTimeout(()=>{
-                    setLoading(false)
-                }, 2000)
-                
+                setLoading(false)
                 setProducts(final.results)
-            }
-            
-            
+            }  
         }
 
         getProductFromApi()
-    },[])
+    },[currentPage])
+
+
 
     return(
-        
-
-        <Context.Provider value={{products, loading, addToFavorites, handleRemoveFav, favoriteItems}}>
+        <Context.Provider value={{products, loading, addToFavorites, handleRemoveFav, favoriteItems, currentPage, setCurrentPage}}>
             {children}
         </Context.Provider>
     )
