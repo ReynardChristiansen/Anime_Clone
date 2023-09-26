@@ -1,22 +1,31 @@
-import {View, Text, StyleSheet, FlatList, Pressable, Image} from "react-native"
+import {View, Text, StyleSheet, FlatList, Pressable, Image, ImageBackground} from "react-native"
 import { TouchableOpacity } from "react-native"
 
 
 export default function ProductListItem({title, image, onPress}){
-   
+    
     return(
         <View style={styles.productItemOuterContainer}>
             
-            <Pressable onPress={onPress} >
+            {/* <Pressable onPress={onPress} >
                 <View> 
                     <Image source={{ uri: image}} onError={(error) => console.error('Image loading error:', error)}  style={styles.pictureImage}/>
                     <Text  style={styles.font} numberOfLines={1}>{title.english}</Text>
-                    
                 </View>
-            </Pressable>
+            </Pressable> */}
 
             
+            <Pressable onPress={onPress} >
+                <View> 
+                    <ImageBackground source={{ uri: image}} onError={(error) => console.error('Image loading error:', error)}  style={styles.pictureImage} >
+                        <ImageBackground source={{ uri: image}} onError={(error) => console.error('Image loading error:', error)}  style={styles.pictureImageTemp}blurRadius={60}>
+                            <Text  style={styles.font} numberOfLines={1}>{title.english == null? title.romaji: title.english }</Text>
+                        </ImageBackground>
+                        
+                    </ImageBackground>
 
+                </View>
+            </Pressable>
         </View>
     )
 }
@@ -25,24 +34,47 @@ export default function ProductListItem({title, image, onPress}){
 const styles = StyleSheet.create({
     productItemOuterContainer:{
         flex:1,
-        margin:16,
+        marginLeft:16,
+        marginRight:16,
+        marginTop:15,
         height:200,
     },
     productItemInnerContainer:{
         flex:1,
-        padding:15,
+        padding:10,
         justifyContent:'center',
         alignContent:'center'
     },
+    // real
+    // pictureImage:{
+    //     width: "$full", 
+    //     height: 190,
+    //     borderRadius: 10,
+    // },
+    // font:{
+    //     fontWeight:'bold',
+    //     fontSize:15
+    // },
+    //real
     pictureImage:{
         width: "$full", 
         height: 190,
-        borderRadius: 10,
-        
+        borderRadius: 20,
+        overflow: 'hidden'
     },
     font:{
         fontWeight:'bold',
-        fontSize:15
+        fontSize:15,
+        color:'white',
+        alignItems:'center',
+        justifyContent: 'center',
+        marginLeft:10,
+        marginTop:6
     },
+    pictureImageTemp:{
+        width: "$full", 
+        height: 40,
+        marginTop:150,
+    }
     
 })

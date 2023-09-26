@@ -19,8 +19,7 @@ export default function DetailsItem({ productDetailData }) {
     return (
       <ScrollView style={styles.container} vertical={true}>
         <Image style={styles.pictureImage} source={{ uri: productDetailData?.image }} onError={(error) => console.error('Image loading error:', error)} />
-        <Text style={styles.font}>{productDetailData.title?.english}</Text>
-  
+        <Text style={styles.font}>{productDetailData.title?.english == null? productDetailData.title?.romaji : productDetailData.title?.english}</Text>
         <ScrollView style={styles.genresContainer} horizontal={true}>
           {temp.map((genre, index) => (
             <Text key={index} style={styles.genresEdit}>
