@@ -1,6 +1,7 @@
 import {View, Text, StyleSheet, FlatList, Pressable, Image} from "react-native"
 import { TouchableOpacity } from "react-native"
 
+
 export default function ProductListItem({title, image, onPress}){
    
     return(
@@ -10,9 +11,12 @@ export default function ProductListItem({title, image, onPress}){
                 <View> 
                     <Image source={{ uri: image}} onError={(error) => console.error('Image loading error:', error)}  style={styles.pictureImage}/>
                     <Text  style={styles.font} numberOfLines={1}>{title.english}</Text>
+                    
                 </View>
             </Pressable>
+
             
+
         </View>
     )
 }
@@ -33,8 +37,12 @@ const styles = StyleSheet.create({
     pictureImage:{
         width: "$full", 
         height: 190,
-        borderRadius: 5,
+        borderRadius: 10,
         
+    },
+    font:{
+        fontWeight:'bold',
+        fontSize:15
     },
     
 })

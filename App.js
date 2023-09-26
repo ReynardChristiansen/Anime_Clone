@@ -18,9 +18,9 @@ const Stack = createNativeStackNavigator()
 function BottomTabs(){
   return(
     <Tab.Navigator>
-      <Tab.Screen name="productListing"component={ProductListing}options={{title:'Anime',tabBarLabel: 'Anime',tabBarIcon: ({ color, size }) => (<Icon name="home" color={color} size={20} />),}}/>
-      <Tab.Screen name="search" component={Search} options={{title:'Search',tabBarLabel: 'Search',tabBarIcon: ({ color, size }) => (<Icon name="search1" color={color} size={20} />),}}/>
-      <Tab.Screen name="favorites" component={Favorites} options={{title:'Favorites',tabBarLabel: 'Favorites', tabBarIcon: ({ color, size }) => (<Icon name="heart" color={color} size={20} />),}}/>
+      <Tab.Screen name="productListing"component={ProductListing}options={{headerTitleAlign: 'center', title:'Anime',tabBarLabel: 'Anime',tabBarIcon: ({ color, size }) => (<Icon name="home" color={color} size={20} />),}}/>
+      <Tab.Screen name="search" component={Search} options={{headerTitleAlign: 'center', title:'Search',tabBarLabel: 'Search',tabBarIcon: ({ color, size }) => (<Icon name="search1" color={color} size={20} />),}}/>
+      <Tab.Screen name="favorites" component={Favorites} options={{headerTitleAlign: 'center', title:'Favorites',tabBarLabel: 'Favorites', tabBarIcon: ({ color, size }) => (<Icon name="heart" color={color} size={20} />),}}/>
     </Tab.Navigator>
   )
 }
@@ -35,7 +35,7 @@ export default function App() {
           <NavigationContainer>
               <Stack.Navigator>
                   <Stack.Screen options={{headerShown:false}} name="bottomTabs" component={BottomTabs}/>
-                  <Stack.Screen options={{title:'Anime Details'}} name="productDetails" component={ProductDetails}/>
+                  <Stack.Screen options={{title:'Anime Details', headerTitleAlign: 'center'}} name="productDetails" component={ProductDetails}/>
               </Stack.Navigator>
           </NavigationContainer>
 
