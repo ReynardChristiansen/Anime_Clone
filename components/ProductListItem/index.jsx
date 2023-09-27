@@ -6,15 +6,6 @@ export default function ProductListItem({title, image, onPress}){
     
     return(
         <View style={styles.productItemOuterContainer}>
-            
-            {/* <Pressable onPress={onPress} >
-                <View> 
-                    <Image source={{ uri: image}} onError={(error) => console.error('Image loading error:', error)}  style={styles.pictureImage}/>
-                    <Text  style={styles.font} numberOfLines={1}>{title.english}</Text>
-                </View>
-            </Pressable> */}
-
-            
             <Pressable onPress={onPress} >
                 <View> 
                     <ImageBackground source={{ uri: image}} onError={(error) => console.error('Image loading error:', error)}  style={styles.pictureImage} >
@@ -45,17 +36,6 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         alignContent:'center'
     },
-    // real
-    // pictureImage:{
-    //     width: "$full", 
-    //     height: 190,
-    //     borderRadius: 10,
-    // },
-    // font:{
-    //     fontWeight:'bold',
-    //     fontSize:15
-    // },
-    //real
     pictureImage:{
         width: "$full", 
         height: 190,

@@ -4,18 +4,58 @@ import {
     heightPercentageToDP as hp,
     widthPercentageToDP as wp,
   } from "react-native-responsive-screen";
+import { useEffect } from "react";
+import { Pressable } from "react-native";
+import {Video } from 'expo-av';
+import { ActivityIndicator } from "react-native";
 
-export default function DetailsItem({ productDetailData }) {
+export default function DetailsItem({ productDetailData}) {
     const temp = [...(productDetailData?.genres || [])];
     const x = productDetailData.description;
     const tempx = `${x}`
     const description = tempx.replace(/<br\s*\/?>|<\/br\s*\/?>|<i\s*\/?>|<\/i\s*\/?>|<b\s*\/?>|<\/b\s*\/?>/g, '');
-    const [isDescriptionExpanded, setDescriptionExpanded] = useState(false);
-  
+    const [isDescriptionExpanded, setDescriptionExpanded] = useState(false); 
+    const [id, setId] = useState('')
+    // const [loading, setLoading] = useState(false)
+    // const [products, setProducts] = useState([])
+
     const toggleDescription = () => {
       setDescriptionExpanded(!isDescriptionExpanded);
     };
+
+    const handleOnPress = (getId)=>{
+        setId(getId)
+    };
+
+    
+    // useEffect(() => {
+    //   setLoading(true);
+    
+    //   async function getProductFromApi() {
+    //     if (id !== '') { // Check if id is not empty
+    //       const apiRes = await fetch(`https://api.consumet.org/meta/anilist/watch/${id}`);
+    //       const final = await apiRes.json();
+    
+    //       if (final) {
+    //         setLoading(false);
+    //         setProducts(final);
+    //       }
+    //     }
+    //   }
+    
+    //   // Include id in the dependency array
+    // }, [id]);
+    
+
+    // console.log(id)
+
+    // if(loading){
+    //     return(
+    //         <ActivityIndicator style={styles.loader} color={'#0377fc'} size="large"/>
+    //     )
+    // }
   
+
     return (
       <ScrollView style={styles.container} vertical={true}>
         <Image style={styles.pictureImage} source={{ uri: productDetailData?.image }} onError={(error) => console.error('Image loading error:', error)} />
@@ -41,6 +81,22 @@ export default function DetailsItem({ productDetailData }) {
           )}
         </View>
 
+        <View style={styles.episodeTopContainer}>
+          <Text style={styles.episodeStyle}>Episode</Text>
+        </View>
+          
+        <View style={styles.episodeContainer}>
+          
+            {productDetailData.episodes?.map((episode) => (
+              <TouchableOpacity key={episode.id}  onPress={()=>handleOnPress(episode.id)} >
+                <Text style={styles.EpisodeEdit}>
+                  {'Episode' + ' '+`${episode.number}`}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          
+        </View>
+
         
 
         
@@ -50,6 +106,41 @@ export default function DetailsItem({ productDetailData }) {
 
 
 const styles = StyleSheet.create({
+  episodeStyle:{
+    fontSize:18,
+    fontWeight:'bold',
+    marginBottom:8
+  },
+  episodeTopContainer:{
+    marginLeft:10,
+    marginRight:10,
+    marginBottom: 20,
+    borderBottomWidth:1,
+    borderColor:"#c2c4c4"
+  },
+  episodeContainer:{
+    flex:1,
+    flexWrap: 'wrap',
+    flexDirection:'row',
+    marginLeft:5,
+    marginRight:5,
+    marginBottom:25
+  },
+  EpisodeEdit:{
+    alignSelf: 'flex-start',
+    paddingLeft:9,
+    borderWidth:1,
+    backgroundColor:'#e8eaeb',
+    padding:3,
+    borderColor:'black',
+    color:'black',
+    borderRadius:4,
+    margin:5,
+    width:110,
+    height:30,
+    marginRight:12
+    
+},
     pictureImage:{
         width: "$full", 
         height: 370,
@@ -85,7 +176,6 @@ const styles = StyleSheet.create({
         color: '#0377fc',
         flex:1,
         marginLeft: wp('70%'),
-        
         textAlign:'right',
     },
 })
