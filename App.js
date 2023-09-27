@@ -10,6 +10,7 @@ import ProductDetails from './screens/productDetails';
 import Search from './screens/Search';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { useEffect, useState } from 'react';
+import MovieDetails from './screens/MovieDetails';
 
 
 const Tab = createBottomTabNavigator()
@@ -36,6 +37,7 @@ export default function App() {
               <Stack.Navigator>
                   <Stack.Screen options={{headerShown:false}} name="bottomTabs" component={BottomTabs}/>
                   <Stack.Screen options={{title:'Anime Details', headerTitleAlign: 'center'}} name="productDetails" component={ProductDetails}/>
+                  <Stack.Screen options={{title:'Movie Details', headerTitleAlign: 'center'}} name="movieDetails" component={MovieDetails}/>
               </Stack.Navigator>
           </NavigationContainer>
 

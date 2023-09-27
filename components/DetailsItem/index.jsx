@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import { Pressable } from "react-native";
 import {Video } from 'expo-av';
 import { ActivityIndicator } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 export default function DetailsItem({ productDetailData}) {
     const temp = [...(productDetailData?.genres || [])];
@@ -16,45 +17,17 @@ export default function DetailsItem({ productDetailData}) {
     const description = tempx.replace(/<br\s*\/?>|<\/br\s*\/?>|<i\s*\/?>|<\/i\s*\/?>|<b\s*\/?>|<\/b\s*\/?>/g, '');
     const [isDescriptionExpanded, setDescriptionExpanded] = useState(false); 
     const [id, setId] = useState('')
-    // const [loading, setLoading] = useState(false)
-    // const [products, setProducts] = useState([])
+    const navParameter = useNavigation()
 
     const toggleDescription = () => {
       setDescriptionExpanded(!isDescriptionExpanded);
     };
 
     const handleOnPress = (getId)=>{
-        setId(getId)
+        navParameter.navigate('movieDetails',{
+          movieID : getId
+      })
     };
-
-    
-    // useEffect(() => {
-    //   setLoading(true);
-    
-    //   async function getProductFromApi() {
-    //     if (id !== '') { // Check if id is not empty
-    //       const apiRes = await fetch(`https://api.consumet.org/meta/anilist/watch/${id}`);
-    //       const final = await apiRes.json();
-    
-    //       if (final) {
-    //         setLoading(false);
-    //         setProducts(final);
-    //       }
-    //     }
-    //   }
-    
-    //   // Include id in the dependency array
-    // }, [id]);
-    
-
-    // console.log(id)
-
-    // if(loading){
-    //     return(
-    //         <ActivityIndicator style={styles.loader} color={'#0377fc'} size="large"/>
-    //     )
-    // }
-  
 
     return (
       <ScrollView style={styles.container} vertical={true}>
