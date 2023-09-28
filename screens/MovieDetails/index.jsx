@@ -10,7 +10,7 @@ import {
   } from "react-native-responsive-screen";
 import axios from "axios";
 import { useRef } from "react"
-
+import { useNavigation } from "@react-navigation/native"
 
 export default function MovieDetails(){
     const route = useRoute()
@@ -20,10 +20,19 @@ export default function MovieDetails(){
     const videoRef = useRef(null);
     const dub = false;
     const [anime, setAnime] = useState([])
+    let temp = movieID
+    let filterTemp = temp.match(/\d+/);
+    let setEpisodeNumber = parseInt(filterTemp[0], 10)
+    const [index, setTes] = useState(setEpisodeNumber);
+    const [StringMovieID, setStringMovieID] = useState(movieID)
+    const [rerender, setRerender] = useState(0);
 
-    const numericPart = movieID.match(/\d+/);
-    const episode = parseInt(numericPart[0], 10)
-    
+    const handleOnPress = (newMovieID, id) => {
+        temp = newMovieID
+        setTes(temp)
+        setStringMovieID(id)
+        setRerender((prevRerender) => prevRerender + 1);
+      };
 
     useEffect(()=>{
         setLoading(true)
@@ -49,7 +58,7 @@ export default function MovieDetails(){
                 //     'X-Requested-With': 'XMLHttpRequest',
                 // }
                 try {
-                    const apiRes = await axios.get(`https://api.consumet.org/meta/anilist/watch/${movieID}`); 
+                    const apiRes = await axios.get(`https://api.consumet.org/meta/anilist/watch/${StringMovieID}`); 
                     setLoading(false) 
                     setProducts(apiRes.data)
                 }
@@ -58,7 +67,7 @@ export default function MovieDetails(){
                 }
             }
         getProductFromApi()
-    },[])
+    },[StringMovieID])
 
     const setOrientation = async () => {
         const currentOrientation = await ScreenOrientation.getOrientationAsync();
@@ -81,17 +90,12 @@ export default function MovieDetails(){
     }
 
     return(
-        <ScrollView style={{marginTop:-2.5}} vertical={true}>
+        <ScrollView key={rerender} style={{marginTop:-2.5}} vertical={true}>
             <Video
             source={{
               uri:
                 products?.sources[3].url ||
                 products?.sources[products?.sources?.length - 1]?.url,
-              headers: {
-                Referer: products?.headers?.Referer,
-                "User-Agent":
-                  "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36",
-              },
             }}
             ref={videoRef}
             rate={1.0}
@@ -103,7 +107,6 @@ export default function MovieDetails(){
             posterStyle={{
               resizeMode: "contain",
             }}
-            
             shouldPlay
             useNativeControls
             onError={(e) => {
@@ -116,14 +119,18 @@ export default function MovieDetails(){
             </View>
 
             
-
-            
             <View style={styles.episodeContainer}>
-                {anime.episodes?.map((episode) => (
-                    <TouchableOpacity key={episode.id}  onPress={()=>handleOnPress(episode.id, anime.id)} >
-                    <Text style={styles.EpisodeEdit}>
-                        {'Episode' + ' '+`${episode.number}`}
-                    </Text>
+                {anime.episodes?.map((episode, n) => (
+                    <TouchableOpacity key={episode.id}  onPress={()=>handleOnPress(episode.number, episode.id)} >
+                        {index === n+1 ?
+                        <Text style={styles.EpisodeEditSpecial}>
+                            {'Episode' + ' '+`${episode.number}`}
+                        </Text> : 
+                        
+                        <Text style={styles.EpisodeEdit}>
+                            {'Episode' + ' '+`${episode.number}`}
+                        </Text>}
+                    
                     </TouchableOpacity>
                 ))}
                 
@@ -174,5 +181,22 @@ const styles = StyleSheet.create({
         width:110,
         height:30,
         marginRight:12
+      },
+      EpisodeEditSpecial:{
+        alignSelf: 'flex-start',
+        paddingLeft:9,
+        borderWidth:1,
+        backgroundColor:'#0377fc',
+        padding:3,
+        borderColor:'#0377fc',
+        color:'white',
+        borderRadius:4,
+        margin:5,
+        width:110,
+        height:30,
+        marginRight:12,
+        shadowColor: '#171717',
+        elevation: 10,
+        shadowColor: 'black',
       },
 })
