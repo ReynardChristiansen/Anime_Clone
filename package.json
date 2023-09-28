@@ -15,13 +15,14 @@
     "@react-navigation/native": "^6.1.8",
     "@react-navigation/native-stack": "^6.9.14",
     "expo": "~49.0.11",
+    "expo-av": "~13.4.1",
     "expo-status-bar": "~1.6.0",
     "react": "18.2.0",
     "react-native": "0.72.4",
+    "react-native-ratings": "^8.1.0",
     "react-native-responsive-screen": "^1.4.2",
     "react-native-tab-view": "^3.5.2",
-    "react-native-vector-icons": "^10.0.0",
-    "expo-av": "~13.4.1"
+    "react-native-vector-icons": "^10.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

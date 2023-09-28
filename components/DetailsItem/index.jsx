@@ -9,6 +9,7 @@ import { Pressable } from "react-native";
 import {Video } from 'expo-av';
 import { ActivityIndicator } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { AirbnbRating, Rating } from "react-native-ratings";
 
 export default function DetailsItem({ productDetailData}) {
     const temp = [...(productDetailData?.genres || [])];
@@ -29,10 +30,34 @@ export default function DetailsItem({ productDetailData}) {
       })
     };
 
+    function calculateOutput(X) {
+      let Y;
+    
+      if (X >= 100) {
+        Y = 5;
+      } else if (X >= 80) {
+        Y = 4 + (X - 80) / (100 - 80); 
+      } else if (X >= 60) {
+        Y = 3 + (X - 60) / (80 - 60); 
+      } else if (X >= 40) {
+        Y = 2 + (X - 40) / (60 - 40); 
+      } else if (X >= 20) {
+        Y = 1 + (X - 20) / (40 - 20); 
+      } else {
+        Y = 0;
+      }
+    
+      return Y;
+    }
+
+    
+    
+
     return (
       <ScrollView style={styles.container} vertical={true}>
         <Image style={styles.pictureImage} source={{ uri: productDetailData?.image }} onError={(error) => console.error('Image loading error:', error)} />
         <Text style={styles.font}>{productDetailData.title?.english == null? productDetailData.title?.romaji : productDetailData.title?.english}</Text>
+        
         <ScrollView style={styles.genresContainer} horizontal={true}>
           {temp.map((genre, index) => (
             <Text key={index} style={styles.genresEdit}>
@@ -40,6 +65,19 @@ export default function DetailsItem({ productDetailData}) {
             </Text>
           ))}
         </ScrollView>
+
+        <View style={styles.ratingContainer}>
+          <View style={styles.detailContainer1}>
+            <Rating tintColor="#f3f3f3" ratingCount={5} fractions={1} jumpValue={0.1} startingValue={calculateOutput(productDetailData?.rating)} imageSize={20}   readonly showReadOnlyText={false} showRating={false}/>
+            <Text>{calculateOutput(productDetailData?.rating)}</Text>
+          </View>
+          <View style={styles.detailContainer2}>
+            <Text>{productDetailData.status}</Text>
+          </View>
+          <View style={styles.detailContainer3}>
+            <Text>{productDetailData.releaseDate}</Text>
+          </View>
+        </View>
   
         <View style={styles.descriptionEdit}>
           <Text>
@@ -53,6 +91,11 @@ export default function DetailsItem({ productDetailData}) {
             </TouchableOpacity>
           )}
         </View>
+
+        
+        
+        
+        
 
         <View style={styles.episodeTopContainer}>
           <Text style={styles.episodeStyle}>Episode</Text>
@@ -79,6 +122,40 @@ export default function DetailsItem({ productDetailData}) {
 
 
 const styles = StyleSheet.create({
+  detailContainer1:{
+    paddingTop:10,
+    alignItems:'center',
+    borderRightWidth:1,
+    height:55,
+    width:125,
+    
+    borderRightWidth:1,
+    borderColor:"#c2c4c4"
+  },
+  detailContainer2:{
+    paddingTop:10,
+    alignItems:'center',
+    borderRightWidth:1,
+    height:55,
+    width:125,
+    
+    borderRightWidth:1,
+    borderColor:"#c2c4c4"
+  },
+  detailContainer3:{
+    paddingTop:10,
+    alignItems:'center',
+    height:55,
+    width:125,
+  },
+  ratingContainer:{
+    marginTop:25,
+    marginBottom:15,
+    flex:1,
+    flexDirection:'row',
+    alignSelf: 'center',
+    alignItems:'center'
+  },
   episodeStyle:{
     fontSize:18,
     fontWeight:'bold',
