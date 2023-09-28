@@ -3,6 +3,11 @@ import { useRoute } from "@react-navigation/native"
 import { useState } from "react"
 import { ActivityIndicator } from "react-native"
 import { useEffect } from "react"
+import { Video } from "expo-av"
+import {
+    heightPercentageToDP as hp,
+    widthPercentageToDP as wp,
+  } from "react-native-responsive-screen";
 
 export default function MovieDetails(){
     const route = useRoute()
@@ -14,13 +19,22 @@ export default function MovieDetails(){
       setLoading(true);
     
       async function getProductFromApi() {
-          const apiRes = await fetch(`https://api.consumet.org/meta/anilist/watch/${movieID}`);
-          const final = await apiRes.json();
-    
-          if (final) {
-            setLoading(false);
-            setProducts(final);
+          if(movieID == ''){
+            console.log('no movid id')
           }
+          else{
+            const apiRes = await fetch(`https://api.consumet.org/meta/anilist/watch/${movieID}`);
+            const final = await apiRes.json();
+    
+            if (final) {
+                setTimeout(()=>{
+                        setLoading(false)
+                }, 2000)
+
+                setProducts(final);
+            }
+          }
+          
       }
     
       getProductFromApi()
@@ -32,9 +46,36 @@ export default function MovieDetails(){
         )
     }
 
+    
+    
+
     return(
         <View>
-            <Text>MovieDetails kontol</Text>
+            <Text>Hello</Text>
+            
+            {/* {products ? (
+      <Video
+        source={{
+          uri:
+            products?.sources[3]?.url ||
+            products?.sources[products?.sources?.length - 1]?.url,
+        }}
+        rate={1.0}
+        volume={1.0}
+        isMuted={false}
+        resizeMode="contain"
+        style={{ width: wp("100%"), height: hp("30%") }}
+        posterStyle={{
+          resizeMode: "contain",
+        }}
+        
+        onError={(e) => {
+          console.log(e);
+        }}
+      />
+    ) : (
+      <Text>No video source available</Text>
+    )} */}
         </View>
     )
 }
