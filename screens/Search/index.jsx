@@ -8,7 +8,6 @@ export default function Search(){
     )
 }
 
-
 const styles = StyleSheet.create({
     loader:{
         flex:1,

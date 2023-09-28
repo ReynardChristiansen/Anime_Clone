@@ -3,7 +3,6 @@ import { TouchableOpacity } from "react-native"
 
 
 export default function ProductListItem({title, image, onPress}){
-    
     return(
         <View style={styles.productItemOuterContainer}>
             <Pressable onPress={onPress} >
@@ -14,7 +13,6 @@ export default function ProductListItem({title, image, onPress}){
                         </ImageBackground>
                         
                     </ImageBackground>
-
                 </View>
             </Pressable>
         </View>

@@ -36,8 +36,6 @@ const ProductContext = ({children}) =>{
         setFavoriteItems(cpyFavoriteItem)
     }
 
-    
-
     useEffect(()=>{
         setLoading(true)
         async function getProductFromApi(){
@@ -53,8 +51,6 @@ const ProductContext = ({children}) =>{
 
         getProductFromApi()
     },[currentPage])
-
-
 
     return(
         <Context.Provider value={{products, loading, addToFavorites, handleRemoveFav, favoriteItems, currentPage, setCurrentPage}}>

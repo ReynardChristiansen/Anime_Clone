@@ -50,11 +50,9 @@ export default function DetailsItem({ productDetailData}) {
       return Y;
     }
 
-    
-    
-
     return (
       <ScrollView style={styles.container} vertical={true}>
+
         <Image style={styles.pictureImage} source={{ uri: productDetailData?.image }} onError={(error) => console.error('Image loading error:', error)} />
         <Text style={styles.font}>{productDetailData.title?.english == null? productDetailData.title?.romaji : productDetailData.title?.english}</Text>
         
@@ -68,7 +66,7 @@ export default function DetailsItem({ productDetailData}) {
 
         <View style={styles.ratingContainer}>
           <View style={styles.detailContainer1}>
-            <Rating tintColor="#f3f3f3" ratingCount={5} fractions={1} jumpValue={0.1} startingValue={calculateOutput(productDetailData?.rating)} imageSize={20}   readonly showReadOnlyText={false} showRating={false}/>
+            <Rating tintColor="#f3f3f3" type='custom'ratingBackgroundColor="#e8eaeb" ratingCount={5} fractions={1} jumpValue={0.1} startingValue={calculateOutput(productDetailData?.rating)} imageSize={20}   readonly showReadOnlyText={false} showRating={false}/>
             <Text>{calculateOutput(productDetailData?.rating)}</Text>
           </View>
           <View style={styles.detailContainer2}>
@@ -92,11 +90,6 @@ export default function DetailsItem({ productDetailData}) {
           )}
         </View>
 
-        
-        
-        
-        
-
         <View style={styles.episodeTopContainer}>
           <Text style={styles.episodeStyle}>Episode</Text>
         </View>
@@ -113,9 +106,6 @@ export default function DetailsItem({ productDetailData}) {
           
         </View>
 
-        
-
-        
       </ScrollView>
     );
   }
@@ -128,22 +118,21 @@ const styles = StyleSheet.create({
     borderRightWidth:1,
     height:55,
     width:125,
-    
     borderRightWidth:1,
     borderColor:"#c2c4c4"
   },
   detailContainer2:{
-    paddingTop:10,
+    paddingTop:15,
     alignItems:'center',
     borderRightWidth:1,
     height:55,
     width:125,
-    
     borderRightWidth:1,
     borderColor:"#c2c4c4"
   },
   detailContainer3:{
-    paddingTop:10,
+    paddingTop:15,
+    
     alignItems:'center',
     height:55,
     width:125,
@@ -189,43 +178,42 @@ const styles = StyleSheet.create({
     width:110,
     height:30,
     marginRight:12
-    
-},
-    pictureImage:{
-        width: "$full", 
-        height: 370,
-        borderRadius: 16,
-        margin:10,
-    },
-    descriptionEdit:{
-        margin:10,
-        textAlign: 'justify',
-        paddingBottom:20
-    },
-    font:{
-        fontSize:28,
-        fontWeight:'bold',
-        margin:10,
-    },
-    genresEdit:{
-        alignSelf: 'flex-start',
-        marginRight:7,
-        borderWidth:1,
-        padding:3,
-        borderColor:'#0377fc',
-        color:'#0377fc',
-        fontWeight:'bold',
-        borderRadius:4
-    },
-    genresContainer:{
-        flexDirection:'row',
-        marginLeft:10,
-        marginRight:10,
-    },
-    readMoreLink: {
-        color: '#0377fc',
-        flex:1,
-        marginLeft: wp('70%'),
-        textAlign:'right',
-    },
+  },
+  pictureImage:{
+    width: "$full", 
+    height: 370,
+    borderRadius: 16,
+    margin:10,
+  },
+  descriptionEdit:{
+    margin:10,
+    textAlign: 'justify',
+    paddingBottom:20
+  },
+  font:{
+    fontSize:28,
+    fontWeight:'bold',
+    margin:10,
+  },
+  genresEdit:{
+    alignSelf: 'flex-start',
+    marginRight:7,
+    borderWidth:1,
+    padding:3,
+    borderColor:'#0377fc',
+    color:'#0377fc',
+    fontWeight:'bold',
+    borderRadius:4
+  },
+  genresContainer:{
+    flexDirection:'row',
+    marginLeft:10,
+    marginRight:10,
+  },
+  readMoreLink: {
+    color: '#0377fc',
+    flex:1,
+    marginLeft: wp('70%'),
+    textAlign:'right',
+  },
 })

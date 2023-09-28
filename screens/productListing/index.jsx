@@ -7,7 +7,6 @@ import { ActivityIndicator } from "react-native"
 import { useNavigation } from "@react-navigation/native"
 import ProductListItem from "../../components/ProductListItem";
 
-
 export default function ProductListing(){
     const {loading, products,currentPage, setCurrentPage} = useContext(Context) 
     const totalPages = 1200;
@@ -25,18 +24,17 @@ export default function ProductListing(){
       }
     };
 
-    if(loading){
-        return(
-            <ActivityIndicator style={styles.loader} color={'#0377fc'} size="large"/>
-        )
-    }
-
     const handleOnPress = (getId)=>{
       navigation.navigate('productDetails',{
           productID : getId
       })
     };
 
+    if(loading){
+        return(
+            <ActivityIndicator style={styles.loader} color={'#0377fc'} size="large"/>
+        )
+    }
 
     return(
         <View style={styles.container}>  
@@ -53,13 +51,10 @@ export default function ProductListing(){
                     <Icon name="doubleright" color="#0377fc" size={20} title="Next" onPress={handleNextPage} disabled={currentPage === totalPages} />
                 </View>
             </View>
-        </View>
 
-        
+        </View>   
     )
 }
-
-
 
 const styles = StyleSheet.create({
     loader:{
@@ -76,9 +71,9 @@ const styles = StyleSheet.create({
       },
       bottomContainer: {
         flexDirection: "row",
-        justifyContent: "space-between", // This evenly spaces the three components
-        alignItems: "center", // Vertically centers the components
-        paddingHorizontal: 30, // Adjust horizontal padding as needed
+        justifyContent: "space-between", 
+        alignItems: "center", 
+        paddingHorizontal: 30, 
         marginTop:15
       },
 })

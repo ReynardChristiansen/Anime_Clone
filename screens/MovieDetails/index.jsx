@@ -14,7 +14,6 @@ export default function MovieDetails(){
       setLoading(true);
     
       async function getProductFromApi() {
-       
           const apiRes = await fetch(`https://api.consumet.org/meta/anilist/watch/${movieID}`);
           const final = await apiRes.json();
     
@@ -27,9 +26,6 @@ export default function MovieDetails(){
       getProductFromApi()
     }, []);
     
-    console.log(products)
-
-
     if(loading){
         return(
             <ActivityIndicator style={styles.loader} color={'#0377fc'} size="large"/>

@@ -6,15 +6,11 @@ import { useState } from "react"
 import { ActivityIndicator } from "react-native"
 import DetailsItem from "../../components/DetailsItem"
 
-
-
-
 export default function ProductDetails(){
     const route = useRoute()
     const navigation = useNavigation()
     const {productID} = route.params
     const dub = false;
-
     const [loading, setLoading] = useState(false)
     const [productDetailData, setproductDetailData ] = useState([])
 
@@ -40,17 +36,12 @@ export default function ProductDetails(){
         )
     }
 
-    
-  
-
-    
     return(
         <View>
             <DetailsItem productDetailData={productDetailData}></DetailsItem>
         </View>
     )
 }
-
 
 const styles = StyleSheet.create({
     loader:{
