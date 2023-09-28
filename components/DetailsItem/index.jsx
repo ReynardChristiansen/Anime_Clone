@@ -24,9 +24,10 @@ export default function DetailsItem({ productDetailData}) {
       setDescriptionExpanded(!isDescriptionExpanded);
     };
 
-    const handleOnPress = (getId)=>{
+    const handleOnPress = (movieIDs, productIDs)=>{
         navParameter.navigate('movieDetails',{
-          movieID : getId
+          movieID : movieIDs,
+          productID : productIDs
       })
     };
 
@@ -97,7 +98,7 @@ export default function DetailsItem({ productDetailData}) {
         <View style={styles.episodeContainer}>
           
             {productDetailData.episodes?.map((episode) => (
-              <TouchableOpacity key={episode.id}  onPress={()=>handleOnPress(episode.id)} >
+              <TouchableOpacity key={episode.id}  onPress={()=>handleOnPress(episode.id, productDetailData.id)} >
                 <Text style={styles.EpisodeEdit}>
                   {'Episode' + ' '+`${episode.number}`}
                 </Text>

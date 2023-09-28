@@ -17,9 +17,8 @@ export default function ProductDetails(){
     useEffect(()=>{
         setLoading(true)
         async function getProductFromApi(){
-            
-                const apiRes = await fetch(`https://api.consumet.org/meta/anilist/info/${productID}?provider=gogoanime&dub=${dub}`)
-                const final = await apiRes.json()
+            const apiRes = await fetch(`https://api.consumet.org/meta/anilist/info/${productID}?provider=gogoanime&dub=${dub}`)
+            const final = await apiRes.json()
             
             if(final){
                 setLoading(false)
