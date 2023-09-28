@@ -26,11 +26,22 @@ export default function MovieDetails(){
     const [index, setTes] = useState(setEpisodeNumber);
     const [StringMovieID, setStringMovieID] = useState(movieID)
     const [rerender, setRerender] = useState(0);
+    const [quality, setQuality] = useState('')
+    const myArray = [360, 420, 720, 1080];
+    const special = 4 
+    const [resolutionChoose, setresolutionChoose] = useState(special)
+    const [resolutionID, setresolutionID] = useState(3)
 
     const handleOnPress = (newMovieID, id) => {
         temp = newMovieID
         setTes(temp)
         setStringMovieID(id)
+        setRerender((prevRerender) => prevRerender + 1);
+      };
+
+      const handleOnPressResolution = (x, y) => {
+        setresolutionChoose(x+1)
+        setresolutionID(x)
         setRerender((prevRerender) => prevRerender + 1);
       };
 
@@ -67,7 +78,7 @@ export default function MovieDetails(){
                 }
             }
         getProductFromApi()
-    },[StringMovieID])
+    },[StringMovieID, resolutionID])
 
     const setOrientation = async () => {
         const currentOrientation = await ScreenOrientation.getOrientationAsync();
@@ -81,7 +92,9 @@ export default function MovieDetails(){
             ScreenOrientation.OrientationLock.PORTRAIT_UP
           );
         }
-      };
+    };
+
+   
 
     if(loading){
         return(
@@ -94,8 +107,7 @@ export default function MovieDetails(){
             <Video
             source={{
               uri:
-                products?.sources[3].url ||
-                products?.sources[products?.sources?.length - 1]?.url,
+                products?.sources[resolutionID].url? products?.sources[resolutionID].url : products?.sources[resolutionID-1].url
             }}
             ref={videoRef}
             rate={1.0}
@@ -114,6 +126,23 @@ export default function MovieDetails(){
             }}
           />
 
+            <View style={styles.resolutionTopContainer}>
+                <Text style={styles.resolutionStyle}>Resolution</Text>
+            </View>
+            <View style={styles.resolutionContainer}>
+                {myArray.map((resolution, n)=>(
+                    <TouchableOpacity key={resolution.id} onPress={()=>handleOnPressResolution(n, n)}>
+                        {resolutionChoose === n+1?
+                            <Text style={styles.resolutionClickSpecial}>{resolution}</Text>
+                            :
+                            <Text style={styles.resolutionClick}>{resolution}</Text>
+                        }
+                        
+                    </TouchableOpacity>
+                    
+                ))}
+            </View>
+
             <View style={styles.episodeTopContainer}>
                 <Text style={styles.episodeStyle}>Episode</Text>
             </View>
@@ -125,8 +154,8 @@ export default function MovieDetails(){
                         {index === n+1 ?
                         <Text style={styles.EpisodeEditSpecial}>
                             {'Episode' + ' '+`${episode.number}`}
-                        </Text> : 
-                        
+                        </Text> 
+                        : 
                         <Text style={styles.EpisodeEdit}>
                             {'Episode' + ' '+`${episode.number}`}
                         </Text>}
@@ -142,6 +171,55 @@ export default function MovieDetails(){
 
 
 const styles = StyleSheet.create({
+    resolutionTopContainer:{
+        marginLeft:10,
+        marginRight:10,
+        marginBottom: -10,
+        borderBottomWidth:1,
+        borderColor:"#c2c4c4"
+    },
+    resolutionStyle:{
+        fontSize:18,
+        fontWeight:'bold',
+        marginBottom:8,
+        marginTop:20
+    },
+    resolutionClick:{
+        alignSelf: 'flex-start',
+        paddingLeft:9,
+        borderWidth:1,
+        backgroundColor:'#e8eaeb',
+        padding:3,
+        borderColor:'#0377fc',
+        color:'black',
+        borderRadius:4,
+        marginTop:20,
+        width:60,
+        height:30,
+        marginRight:12,
+        color:'#0377fc'
+    },
+    resolutionClickSpecial:{
+        alignSelf: 'flex-start',
+        paddingLeft:9,
+        borderWidth:1,
+        backgroundColor:'#0377fc',
+        padding:3,
+        borderColor:'#0377fc',
+        color:'white',
+        borderRadius:4,
+        marginTop:20,
+        width:60,
+        height:30,
+        marginRight:12,
+        elevation: 10,
+        shadowColor: 'black',
+        
+    },
+    resolutionContainer:{
+        margin:10,
+        flexDirection:'row'
+    },
     loader:{
         flex:1,
         justifyContent:'center',
