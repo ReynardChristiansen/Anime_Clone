@@ -8,7 +8,9 @@ const ProductContext = ({children}) =>{
     const [favoriteItems, setFavoriteItems] = useState([])
     const [currentPage, setCurrentPage] = useState(1);
 
-    const addToFavorites = (productID, reason)=>{
+   
+
+    const addToFavorites = (productID)=>{
         let cpyFavoriteItem = [...favoriteItems]
         const index = cpyFavoriteItem.findIndex(item => item.id === productID)
 
@@ -17,12 +19,12 @@ const ProductContext = ({children}) =>{
             cpyFavoriteItem.push({
                 title : getCurrentProductItem.title,
                 id: productID,
-                reason
+                image :  getCurrentProductItem.image
             })
         }
         else{
             cpyFavoriteItem[index] ={
-                ...cpyFavoriteItem[index],reason
+                ...cpyFavoriteItem[index]
             }
         }
 
