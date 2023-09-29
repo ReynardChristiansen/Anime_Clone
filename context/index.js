@@ -28,6 +28,8 @@ const ProductContext = ({children}) =>{
 
         setFavoriteItems(cpyFavoriteItem)
     }
+    
+
 
     const handleRemoveFav=(getCurrentID)=>{
         let cpyFavoriteItem = [...favoriteItems]
@@ -54,7 +56,7 @@ const ProductContext = ({children}) =>{
     },[currentPage])
 
     return(
-        <Context.Provider value={{products, loading, addToFavorites, handleRemoveFav, favoriteItems, currentPage, setCurrentPage}}>
+        <Context.Provider value={{products, loading, addToFavorites, handleRemoveFav, favoriteItems, currentPage, setCurrentPage, }}>
             {children}
         </Context.Provider>
     )
