@@ -21,9 +21,14 @@ export default function MovieDetails(){
     const dub = false;
     const [anime, setAnime] = useState([])
     let temp = movieID
-    let filterTemp = temp.match(/\d+/);
-    let setEpisodeNumber = parseInt(filterTemp[0], 10)
-    const [index, setTes] = useState(setEpisodeNumber);
+    let filterTemp = temp.match(/\d+/g);
+    let lastNumber
+
+    if (filterTemp && filterTemp.length > 0) {
+        lastNumber = parseInt(filterTemp[filterTemp.length - 1], 10);
+    }
+
+    const [index, setTes] = useState(lastNumber);
     const [StringMovieID, setStringMovieID] = useState(movieID)
     const [rerender, setRerender] = useState(0);
     const [quality, setQuality] = useState('')
@@ -31,6 +36,7 @@ export default function MovieDetails(){
     const special = 4 
     const [resolutionChoose, setresolutionChoose] = useState(special)
     const [resolutionID, setresolutionID] = useState(3)
+    const filteredInput = movieID.replace(/-/g, ' ');
 
     const handleOnPress = (newMovieID, id) => {
         temp = newMovieID
@@ -119,7 +125,6 @@ export default function MovieDetails(){
             posterStyle={{
               resizeMode: "contain",
             }}
-            shouldPlay
             useNativeControls
             onError={(e) => {
               console.log(e);
@@ -131,7 +136,7 @@ export default function MovieDetails(){
             </View>
             <View style={styles.resolutionContainer}>
                 {myArray.map((resolution, n)=>(
-                    <TouchableOpacity key={resolution.id} onPress={()=>handleOnPressResolution(n, n)}>
+                    <TouchableOpacity key={n} onPress={()=>handleOnPressResolution(n, n)}>
                         {resolutionChoose === n+1?
                             <Text style={styles.resolutionClickSpecial}>{resolution}</Text>
                             :
@@ -171,6 +176,17 @@ export default function MovieDetails(){
 
 
 const styles = StyleSheet.create({
+    titleTopContainer:{
+        marginLeft:10,
+        marginRight:10,
+        marginBottom: 30,
+    },
+    titleStyle:{
+        fontSize:18,
+        fontWeight:'bold',
+        marginBottom:8,
+        marginTop:20
+    },
     resolutionTopContainer:{
         marginLeft:10,
         marginRight:10,
