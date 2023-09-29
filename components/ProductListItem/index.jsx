@@ -1,6 +1,4 @@
 import {View, Text, StyleSheet, FlatList, Pressable, Image, ImageBackground} from "react-native"
-import { TouchableOpacity } from "react-native"
-
 
 export default function ProductListItem({title, image, onPress}){
     return(

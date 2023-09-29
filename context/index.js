@@ -3,7 +3,6 @@ import { createContext, useEffect, useState } from "react";
 export const Context = createContext(null)
 
 const ProductContext = ({children}) =>{
-    //list of products
     const [products, setProducts] = useState([])
     const [loading, setLoading] = useState(false)
     const [favoriteItems, setFavoriteItems] = useState([])
@@ -39,14 +38,16 @@ const ProductContext = ({children}) =>{
     useEffect(()=>{
         setLoading(true)
         async function getProductFromApi(){
-            
+            try{
                 const apiRes = await fetch(`https://api.consumet.org/meta/anilist/popular?page=${currentPage}`)
                 const final = await apiRes.json()
-            
-            if(final){
                 setLoading(false)
                 setProducts(final.results)
-            }  
+                
+            }
+            catch(error){
+                console.log(error)
+            } 
         }
 
         getProductFromApi()

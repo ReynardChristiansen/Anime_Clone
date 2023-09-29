@@ -4,10 +4,6 @@ import {
     heightPercentageToDP as hp,
     widthPercentageToDP as wp,
   } from "react-native-responsive-screen";
-import { useEffect } from "react";
-import { Pressable } from "react-native";
-import {Video } from 'expo-av';
-import { ActivityIndicator } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { AirbnbRating, Rating } from "react-native-ratings";
 

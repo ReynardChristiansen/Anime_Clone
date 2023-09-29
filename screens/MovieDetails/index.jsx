@@ -10,7 +10,6 @@ import {
   } from "react-native-responsive-screen";
 import axios from "axios";
 import { useRef } from "react"
-import { useNavigation } from "@react-navigation/native"
 
 export default function MovieDetails(){
     const route = useRoute()
@@ -54,13 +53,16 @@ export default function MovieDetails(){
     useEffect(()=>{
         setLoading(true)
         async function getProductFromApi(){
-            const apiRes = await fetch(`https://api.consumet.org/meta/anilist/info/${productID}?provider=gogoanime&dub=${dub}`)
-            const final = await apiRes.json()
-            
-            if(final){
+            try{
+                const apiRes = await fetch(`https://api.consumet.org/meta/anilist/info/${productID}?provider=gogoanime&dub=${dub}`)
+                const final = await apiRes.json()
                 setLoading(false)
                 setAnime(final)
-            }  
+            }
+            catch(error){
+                console.log(error)
+            }
+            
         }
 
         getProductFromApi()
@@ -99,8 +101,6 @@ export default function MovieDetails(){
           );
         }
     };
-
-   
 
     if(loading){
         return(

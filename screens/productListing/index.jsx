@@ -1,7 +1,6 @@
 import {View, Text, StyleSheet, FlatList, Image, Button} from "react-native"
 import { useContext } from "react"
 import { Context } from "../../context"
-import { useState } from "react"
 import Icon from 'react-native-vector-icons/AntDesign';
 import { ActivityIndicator } from "react-native"
 import { useNavigation } from "@react-navigation/native"
