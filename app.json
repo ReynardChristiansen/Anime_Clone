@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "AnimeProject",
-    "slug": "AnimeProject",
+    "name": "Renime",
+    "slug": "Renime",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -21,10 +21,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.reynardchristiansen.Renime"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "ccb0884a-4b06-4512-b749-ea882b5f4763"
+      }
     }
   }
 }
