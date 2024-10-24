@@ -1,6 +1,8 @@
 
 ## Renime
 This application offers a seamless experience for anime enthusiasts to explore popular anime, watch episodes, search for specific anime, and save their favorite ones for later viewing.
+
+![image alt](https://reynardchristiansen.github.io/porto/assets/project-1.png)
 ## Home Page
 
 - Popular Anime Display: Upon launching the app, users are greeted with a selection of popular anime titles.
